@@ -21,7 +21,7 @@ const defaultProps: SearchFormProps = {
 const SearchForm: React.FC<SearchFormProps> = ({getRoutes, route, handleRouteChange}) => (
   <section className="search-form">
     <h1 className="search-form--title">Welcome to Routefinder!</h1>
-    <h2 className="search-form--sub-title">To start please enter a start and end point for your route.</h2>
+    <h2 className="search-form--sub-title">To begin please enter a start and end point for your route.</h2>
     <form onSubmit={getRoutes} className="search-form--wrapper">
       <div className="search-form--input">
         <label htmlFor="routeStart">

@@ -23,8 +23,24 @@ export class RouteFinder {
 
   }
 
-  // We return a string from the findRoutes() method, however depending
-  // on the app requirements we may actually want to return an object
+  private noStartNode(startNode: string): IRouteFinderResponse {
+    return {
+      message: `No valid route could be found - the start point ${startNode} could not be found!`,
+      isValidRoute: false,
+      waypoints: [],
+      totalDistance: 0
+    }
+  }
+
+  private noEndNode(endNode: string): IRouteFinderResponse {
+    return {
+      message: `No valid route could be found - the end point ${endNode} could not be found!`,
+      isValidRoute: false,
+      waypoints: [],
+      totalDistance: 0
+    }
+  }
+
   public findRoutes(startNode: string, endNode: string): IRouteFinderResponse {
     const times: ITimes = {};
     const backtrace: Backtrace = {};
@@ -39,12 +55,7 @@ export class RouteFinder {
     });
 
     if (!this.graph.nodes.includes(startNode)) {
-      return {
-        message: `No valid route could be found - the start point ${startNode} could not be found!`,
-        isValidRoute: false,
-        waypoints: [],
-        totalDistance: 0
-      }
+      return this.noStartNode(startNode)
     };
     
     priorityQueue.enqueue([startNode, 0]);
@@ -65,12 +76,7 @@ export class RouteFinder {
     }
     
     if (typeof times[endNode] === 'undefined') {
-      return {
-        message: `No valid route could be found - the end point ${endNode} could not be found!`,
-        isValidRoute: false,
-        waypoints: [],
-        totalDistance: 0
-      }
+      return this.noEndNode(endNode);
     }
 
     let path = [endNode];
