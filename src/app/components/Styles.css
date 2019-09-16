@@ -46,6 +46,11 @@
   margin: 0.8rem 0;
 }
 
+.search-results__no-results {
+  background-color: #ff54549c;
+  border-radius: 0.4rem;
+}
+
 .search-results--row {
   display: flex;
   padding: 1rem;

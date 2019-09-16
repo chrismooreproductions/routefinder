@@ -5,12 +5,6 @@ type SearchResultProps = {
   validRoute: IRouteFinderResponse;
 }
 
-const renderTotalDistance = (validRoute) => {
-    return (
-      <div>Total Journey Distance: {validRoute.totalDistance}</div>
-    )
-}
-
 const SearchResults: React.FC<SearchResultProps> = ({validRoute}) => {
   return (
     <section className="search-results">

@@ -22,7 +22,7 @@ export class PriorityQueue {
     }
   }
 
-  public dequeue(): Element | boolean {
+  public dequeue(): Element | false {
     let value = this.collection.shift();
     if (typeof value !== 'undefined') { return value }
     return false;

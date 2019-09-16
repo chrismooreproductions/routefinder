@@ -1,8 +1,11 @@
 import { PriorityQueue } from '../PriorityQueue';
 import { Graph } from '../Graph';
-import { ITimes, Backtrace, IRouteFinderResponse } from '../../types/RouteFinder';
+import { ITimes, IRouteFinderResponse } from '../../types/RouteFinder';
 import { IWaypoint } from '../../types/Graph';
 
+interface Backtrace {
+  [index: string]: string
+}
 export class RouteFinder {
   private graph = new Graph();
 
@@ -24,7 +27,7 @@ export class RouteFinder {
   // on the app requirements we may actually want to return an object
   public findRoutes(startNode: string, endNode: string): IRouteFinderResponse {
     const times: ITimes = {};
-    const backtrace: Backtrace = [];
+    const backtrace: Backtrace = {};
     const priorityQueue = new PriorityQueue();
   
     times[startNode] = 0;
@@ -34,32 +37,33 @@ export class RouteFinder {
         times[node] = Infinity
       }
     });
+    
     priorityQueue.enqueue([startNode, 0]);
 
-    try {
-      while (!priorityQueue.isEmpty()) {
-        let shortestStep = priorityQueue.dequeue();
-        if (shortestStep !== false) {
-          let currentNode = shortestStep[0];
-          this.graph.adjacentNodeList[currentNode].forEach(neighbor => {
-            let time = times[currentNode] + neighbor.weight;
-            if (time < times[neighbor.node]) {
-              times[neighbor.node] = time;
-              backtrace[neighbor.node] = currentNode;
-              priorityQueue.enqueue([neighbor.node, time]);
-            }
-          });
-        }
-      } 
-    } catch (err) {
+    while (!priorityQueue.isEmpty()) {
+      let shortestStep = priorityQueue.dequeue();
+      if (shortestStep !== false) {
+        let currentNode = shortestStep[0];
+        this.graph.adjacentNodeList[currentNode].forEach(neighbor => {
+          let time = times[currentNode] + neighbor.weight;
+          if (time < times[neighbor.node]) {
+            times[neighbor.node] = time;
+            backtrace[neighbor.node] = currentNode;
+            priorityQueue.enqueue([neighbor.node, time]);
+          }
+        });
+      }
+    }
+    
+    if (typeof times[endNode] === 'undefined') {
       return {
-        message: `No valid route could be found for the start point ${startNode} and endpoint ${endNode}`,
+        message: `No valid route could be found for the start point ${startNode} and end point ${endNode}`,
         isValidRoute: false,
         waypoints: [],
         totalDistance: 0
-      };
+      }
     }
-  
+
     let path = [endNode];
     let lastStep = endNode;
     while(lastStep !== startNode) {
@@ -68,8 +72,7 @@ export class RouteFinder {
     }
 
     let waypoints: IWaypoint[] = []
-    // I know this is a bit ridiculous but I needed to return the path objects and didn't have time
-    // to change the above logic.
+
     for (let i: number = 0; i < path.length - 1; i++) {
       const firstNode = path[i]
       const secondNode = path[i+1]
