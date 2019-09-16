@@ -27,27 +27,23 @@
 
 .search-form input {
   width: 100%;
-  border: none;
-  border-radius: 0.2rem;
   padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  border: 0;
 }
 
 .search-form--input {
-  border-radius: 0.4rem;
-  border: 0;
   width: 100%;
   margin-right: 2rem;
 }
 
 .search-form--submit {
-  border-radius: 8px;
-  border: 0;
   max-width: 20%;
   width: 100%;
 }
 
 .search-results {
-  margin: 12px 0;
+  margin: 0.8rem 0;
 }
 
 .search-results--row {
