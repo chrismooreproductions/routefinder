@@ -37,6 +37,15 @@ export class RouteFinder {
         times[node] = Infinity
       }
     });
+
+    if (!this.graph.nodes.includes(startNode)) {
+      return {
+        message: `No valid route could be found - the start point ${startNode} could not be found!`,
+        isValidRoute: false,
+        waypoints: [],
+        totalDistance: 0
+      }
+    };
     
     priorityQueue.enqueue([startNode, 0]);
 
@@ -57,7 +66,7 @@ export class RouteFinder {
     
     if (typeof times[endNode] === 'undefined') {
       return {
-        message: `No valid route could be found for the start point ${startNode} and end point ${endNode}`,
+        message: `No valid route could be found - the end point ${endNode} could not be found!`,
         isValidRoute: false,
         waypoints: [],
         totalDistance: 0
