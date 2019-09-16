@@ -1,3 +1,23 @@
+## React & Typescript Demo
+
+This project is a fairly basic implementation of Dijkstra's algorithm for finding the shortest route from one point to another in a map that contains a list of nodes and edges. 
+
+The implementation that I have used is the weighted Shortest Path First (SPF) algorithm that essentially works by looking for the node that is the shortest distance away from the startpoint, moving to that point and then repeating the process until the route end condition is met.
+
+From inspection the obvious issue with using this version of the algorithm is that while it returns the shortest distance between nodes it may not actually return the shortest route between two points for a given map. Given this example https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#/media/File:Dijkstra_Animation.gif, if you wanted the shortest route from point 2 -> 3 on the basis of the SPF algorithm the shortest path would be returned as 2 -> 1 ->3 which is clearly incorrect (the correct answer would be 2 -> 3 direct).
+
+The alternative to using the SPF method is to build an application that finds all the possible routes for a given map and set of start and endpoints, then checks through all the possible routes for the shortest one.
+
+## Caveats
+
+Unfortunately due to time contraints in this version of the project there are no unit tests. Getting the app and logic together in 5 days was enough work to be getting on with but in an initial version of the project I wrote som unit tests which I will send to you seperately.
+
+There is also currently a bug which creates a memory leak if one of the start or endpoints is not in the map. I did put a try/catch to try to handle this but it was getting close to 11PM on a Sunday after running the Bristol Half Marathon and it looks like it didn't work. Unfortuntately there is no validation on the input form too.
+
+Clearly each of these issues (no tests, no validation, bug that crashes the app) would be fixed before commiting the code to develop and definitely before the code was pushed to live.
+
+## Running the app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
