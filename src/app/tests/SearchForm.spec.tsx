@@ -4,7 +4,6 @@ import SearchForm from '../components/SearchForm';
 
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
-import sinon from 'sinon';
 
 configure({adapter: new Adapter()});
 
@@ -32,7 +31,6 @@ it('renders a SearchForm without crashing', () => {
 
 it('renders two input fields and a submit', () => {
   const wrapper = shallow(<SearchForm {...searchFormProps} />);
-  const input = wrapper.exists('.search-form--input-field');
-  expect(input).toHaveLength(2);
-  console.log(input);
+  expect(wrapper.find('.search-form--input-field').length).toBe(2)
+  expect(wrapper.find('.search-form--submit-button').length).toBe(1)
 })
