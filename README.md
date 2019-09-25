@@ -8,14 +8,6 @@ From inspection the obvious issue with using this version of the algorithm is th
 
 The alternative to using the SPF method is to build an application that finds all the possible routes for a given map and set of start and endpoints, then checks through all the possible routes for the shortest one.
 
-## Caveats
-
-Unfortunately due to time contraints in this version of the project there are no unit tests. Getting the app and logic together in 5 days was enough work to be getting on with but in an initial version of the project I wrote som unit tests which I will send to you seperately.
-
-There is also currently a bug which creates a memory leak if one of the start or endpoints is not in the map. I did put a try/catch to try to handle this but it was getting close to 11PM on a Sunday after running the Bristol Half Marathon and it looks like it didn't work. Unfortuntately there is no validation on the input form too.
-
-Clearly each of these issues (no tests, no validation, bug that crashes the app) would be fixed before commiting the code to develop and definitely before the code was pushed to live.
-
 ## Running the app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
